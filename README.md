@@ -14,3 +14,14 @@ https://www.udemy.com/course/ros2-moveit2/?couponCode=CP250105G1
 sudo apt update
 sudo apt upgrade
 ```
+
+* Install ros2-control and ros2-controllers(In this case is Jazzy)
+
+```
+sudo apt install ros-jazzy-ros2-control ros-jazzy-ros2-controllers
+```
+
+----
+## CH2 Setup and Installation for ROS2 and Moveit2
+
+[CH2 REAMDME](./docs/README-ch2.md)
