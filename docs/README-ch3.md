@@ -180,3 +180,29 @@ ros2 launch urdf_tutorial display.launch.py model:=/home/eddie/Documents/ROS2_mo
 
 #ros2 launch urdf_tutorial display.launch.py model:=URDF_file_path
 ```
+
+### 3-7 Improve the URDF with Xacro
+
+1. New file my_robot.urdf.xacro
+
+ros2_ws/src/my_robot_description/urdf/my_robot.urdf.xacro
+
+2. New file common_properties.xacro for common properties
+
+ros2_ws/src/my_robot_description/urdf/common_oproperties.xacro
+
+3. New file arm.xacro
+
+ros2_ws/src/my_robot_description/urdf/arm.xacro
+
+4. Add include file in my_robot.urdf.xacro
+
+ros2_ws/src/my_robot_description/urdf/my_robot.urdf.xacro
+
+5. Test code
+
+```
+ros2 launch urdf_tutorial display.launch.py model:=/home/eddie/Documents/ROS2_moveit2_learning/ros2_ws/src/my_robot_description/urdf/my_robot.urdf.xacro
+
+#ros2 launch urdf_tutorial display.launch.py model:=URDF_file_path
+```
