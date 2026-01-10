@@ -86,7 +86,7 @@ colcon build --packages-select my_robot_description
 ```
 
 ### 3-3 First Link - Create and Set Up the URDF
-
+First Link-Create and Set Up URDF
 1. New arm.urdf
 
 ros2_ws/src/my_robot_description/urdf/arm.urdf
@@ -103,9 +103,26 @@ sudo apt install ros-jazzy-urdf-tutorial
 ```
 ros2 launch urdf_tutorial display.launch.py model:=/home/eddie/Documents/ROS2_moveit2_learning/ros2_ws/src/my_robot_description/urdf/arm.urdf
 
-ros2 launch urdf_tutorial display.launch.py model:=URDF_file_path
+#ros2 launch urdf_tutorial display.launch.py model:=URDF_file_path
 ```
 
 4. You can learn more about link
 
 https://wiki.ros.org/urdf/XML/link
+
+### 3-4 Second link - Recap of the Process to Add Links Together
+
+1. Add shoulder_link and joint1 in arm.urdf
+
+/ros2_ws/src/my_robot_description/urdf/arm.urdf
+
+2. Adjust the parmeter in link and joint. 
+
+3. Test code
+
+```
+ros2 launch urdf_tutorial display.launch.py model:=/home/eddie/Documents/ROS2_moveit2_learning/ros2_ws/src/my_robot_description/urdf/arm.urdf
+
+
+#ros2 launch urdf_tutorial display.launch.py model:=URDF_file_path
+```
