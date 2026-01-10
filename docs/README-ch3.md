@@ -111,7 +111,7 @@ ros2 launch urdf_tutorial display.launch.py model:=/home/eddie/Documents/ROS2_mo
 https://wiki.ros.org/urdf/XML/link
 
 ### 3-4 Second link - Recap of the Process to Add Links Together
-
+Second link Recap and Add Links Together
 1. Add shoulder_link and joint1 in arm.urdf
 
 /ros2_ws/src/my_robot_description/urdf/arm.urdf
@@ -119,6 +119,60 @@ https://wiki.ros.org/urdf/XML/link
 2. Adjust the parmeter in link and joint. 
 
 3. Test code
+
+```
+ros2 launch urdf_tutorial display.launch.py model:=/home/eddie/Documents/ROS2_moveit2_learning/ros2_ws/src/my_robot_description/urdf/arm.urdf
+
+
+#ros2 launch urdf_tutorial display.launch.py model:=URDF_file_path
+```
+
+### 3-5 Activity 01 - Finish the URDF for the Arm
+
+* Build the 6 axis robotic arm
+
+Specifications for the 6-axis robotic arm:
+Links:
+- base_link (box size 0.4 0.4 0.1)
+- shoulder_link (cylinder len 6.5 radius 6.1)
+- arm_link (cylinder len 0.6 radius 0.05)
+- elbow link (cylinder len 6.1 radius 8.05)
+- forearm link (cylinder len 6.5 radius 0.05)
+- wrist_link (box size 0.1 0.1 0.05)
+- hand_link (box size 0.1 0.1 0.02)
+- tool_link (no visual)
+Joints:
+- joint1 (revolute, axis z, min -3.14, max 3.14)
+- joint2 (revolute, axis y, min 6, max 2.5)
+- joint3 (revolute, axis y, min 0, max 2.5)
+- joint4 (revolute, axis z, min -3.14, max 3.14)
+- joint5 (revolute, axis y, min -1.57, max 1.57)
+- joint6 (continuous, axis z)
+- hand_tool_joint (fixed)
+
+### 3-6 Activity 01 - Solution
+
+1. Follow the robot spec, make URDF. 
+Specifications for the 6-axis robotic arm:
+Links:
+-Ibase_link (box size 0.4 0.4 0.1)
+- shoulder_link (cylinder len 6.5 radius 6.1)
+- arm_link (cylinder len 0.6 radius 0.05)
+- elbow link (cylinder len 6.1 radius 8.05)
+- forearm link (cylinder len 6.5 radius 0.05)
+- wrist_link (box size 0.1 0.1 0.05)
+- hand_link (box size 0.1 0.1 0.02)
+- tool_link (no visual)
+Joints:
+- joint1 (revolute, axis z, min -3.14, max 3.14)
+- joint2 (revolute, axis y, min 6, max 2.5)
+- joint3 (revolute, axis y, min 0, max 2.5)
+- joint4 (revolute, axis z, min -3.14, max 3.14)
+- joint5 (revolute, axis y, min -1.57, max 1.57)
+- joint6 (continuous, axis z)
+- hand_tool_joint (fixed)
+
+2. Test code
 
 ```
 ros2 launch urdf_tutorial display.launch.py model:=/home/eddie/Documents/ROS2_moveit2_learning/ros2_ws/src/my_robot_description/urdf/arm.urdf
