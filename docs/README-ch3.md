@@ -76,3 +76,36 @@ install(
 )
 
 ```
+
+5. Colcon build check your setting is correct
+
+```
+colcon build --packages-select my_robot_description 
+
+# This is for build one package. 
+```
+
+### 3-3 First Link - Create and Set Up the URDF
+
+1. New arm.urdf
+
+ros2_ws/src/my_robot_description/urdf/arm.urdf
+
+2. Install urdf tutorial (This sample version is jazzy)
+
+```
+sudo apt install ros-jazzy-urdf-tutorial
+
+```
+
+3. Test and open URDF file
+
+```
+ros2 launch urdf_tutorial display.launch.py model:=/home/eddie/Documents/ROS2_moveit2_learning/ros2_ws/src/my_robot_description/urdf/arm.urdf
+
+ros2 launch urdf_tutorial display.launch.py model:=URDF_file_path
+```
+
+4. You can learn more about link
+
+https://wiki.ros.org/urdf/XML/link
