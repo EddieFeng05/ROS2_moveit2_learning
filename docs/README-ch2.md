@@ -24,7 +24,7 @@ sudo apt install ros-jazzy-ros2-control ros-jazzy-ros2-controllers
 ----
 ## CH2 2. Setup and Installation for ROS2 and Moveit2
 
-### Ch2-1 Introv
+### Ch2-1 Intro
 
 ### Ch2-2 Starting Code + Robot Overview
 

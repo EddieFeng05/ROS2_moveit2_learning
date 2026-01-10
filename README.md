@@ -25,3 +25,7 @@ sudo apt install ros-jazzy-ros2-control ros-jazzy-ros2-controllers
 ## CH2 Setup and Installation for ROS2 and Moveit2
 
 [CH2 REAMDME](./docs/README-ch2.md)
+
+## CH3 Create a URDF for a 6-axis Robotic Arm
+
+[CH3 REAMDME](./docs/README-ch3.md)
