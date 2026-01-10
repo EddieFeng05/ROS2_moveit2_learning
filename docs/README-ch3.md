@@ -206,3 +206,84 @@ ros2 launch urdf_tutorial display.launch.py model:=/home/eddie/Documents/ROS2_mo
 
 #ros2 launch urdf_tutorial display.launch.py model:=URDF_file_path
 ```
+
+### 3-8 Create a Launch File to Display the Robot
+
+1. Check the node list when launch urdf_tutorial display.launch.py
+
+* Terminaal 1
+```
+ros2 launch urdf_tutorial display.launch.py model:=/home/eddie/Documents/ROS2_moveit2_learning/ros2_ws/src/my_robot_description/urdf/my_robot.urdf.xacro
+
+#ros2 launch urdf_tutorial display.launch.py model:=URDF_file_path
+```
+
+
+* Terminal 2
+```
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning$ ros2 node list
+/joint_state_publisher
+/robot_state_publisher
+/rviz
+/transform_listener_impl_5cba80b3bc80
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning$ 
+
+```
+
+2. New launch file
+
+ros2_ws/src/my_robot_description/launch/display.launch.xml
+
+3. Test launch file, remember you are in ros2_ws folder
+
+* Step 1
+```
+colcon build 
+```
+
+* Step 2 
+```
+source install/setup.bash 
+```
+
+* Step 3
+```
+ros2 launch my_robot_description display.launch.xml 
+```
+* Notice: You just see blank in rviz windwos, you need to setup config. 
+
+4. Setting rviz
+
+Step1. Global Options/Fixed Frame: map -->  base_link
+Step2. Add RobotMode
+Step3. RobotMode/Description Topic :/robot_description
+Step4. Add TF 
+
+When you finish 4 steps you will see 6 axis robotic arm with TF in rviz windows. Next step:
+
+Step5. Save as Rviz config in your rviz folder
+
+ros2_ws/src/my_robot_description/rviz/urdf_config.rviz
+
+5. Add new code about rviz config in launch file
+
+ros2_ws/src/my_robot_description/launch/display.launch.xml
+
+6. Test launch file, remember you are in ros2_ws folder
+
+* Step 1
+```
+colcon build 
+```
+
+* Step 2 
+```
+source install/setup.bash 
+```
+
+* Step 3
+```
+ros2 launch my_robot_description display.launch.xml 
+```
+
+* Notice: You see robot in rviz windows like you setup in your rivz config. 
