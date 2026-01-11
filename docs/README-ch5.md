@@ -42,3 +42,33 @@ ros2_ws/src/my_robot_description/urdf/gripper.xacro
 ros2 launch urdf_tutorial display.launch.py model:=/home/eddie/Documents/ROS2_moveit2_learning/ros2_ws/src/my_robot_description/urdf/gripper.xacro
 ```
 
+### Ch5-3 Connect the Gripper to the Arm
+
+1. Adjust code in gripper.xacro
+
+1.1 delete name
+
+1.2 cut matrerial codes and paste that in common_properties.xacro
+
+ros2_ws/src/my_robot_description/urdf/common_properties.xacro
+ros2_ws/src/my_robot_description/urdf/gripper.xacro
+
+2. Add new code in my_robot.urdf.xacro
+
+2.1 include gripper.xacro
+
+2.2 Add joint to connnect tool_link and gripper_base_link
+
+ros2_ws/src/my_robot_description/urdf/my_robot.urdf.xacro
+
+3. Run and test
+
+```
+ros2 launch my_robot_description display.launch.xml 
+```
+
+4. See the tf tree
+
+```
+ros2 run tf2_tools view_frames 
+```
