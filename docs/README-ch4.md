@@ -155,3 +155,80 @@ ros2_ws/src/my_robot_description/urdf/my_robot.urdf.xacro
 18.4 Select xxx_moveit_config folder
 
 18.5 Click Load Files
+
+### Ch4-5 Files Overview 
+
+Overview moveit_config folder.
+
+### Ch4-6 Start the MoveIt Demo Launch File
+
+1. Change parmaemter in joint_limits.yaml
+
+ros2_ws/src/my_robot_moveit_config/config/joint_limits.yaml
+
+``` 
+# All joints
+has_velocity_limits: true
+max_velocity: 1 --> 1.0
+has_acceleration_limits: false -->true
+max_acceleration: 0 --> 1.0
+
+```
+
+2. Add parmaemter in moveit_controllers.yaml
+
+ros2_ws/src/my_robot_moveit_config/config/moveit_controllers.yaml
+
+```
+moveit_simple_controller_manager:
+  controller_names:
+    - arm_controller
+
+  arm_controller:
+    type: FollowJointTrajectory
+    joints:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+      - joint5
+      - joint6
+    action_ns: follow_joint_trajectory
+    default: true
+```
+
+3. build package
+
+```
+colcon build && source install/setup.bashrc
+```
+
+4. Run launch file
+
+```
+ros2 launch my_robot_moveit_config demo.launch.py 
+```
+
+5. Setting Planning Library
+
+Context --> Planning Library --> OMPL --> ompl
+
+6. Start planning
+
+* Step1 Query: Start State --> Goal State
+
+* Step2 Commands: Plan --> Execute
+
+* Notice the state: Failed, Executed, Time
+
+7. Set the velcoity
+
+Options
+Velocity Scaling: 0.1 --> 1.0
+Accel. Scaling: 0.1 --> 1.0
+
+8. Cartesian Path: Make trajectory is linear
+
+Options --> Use Cartesian Path check
+
+
