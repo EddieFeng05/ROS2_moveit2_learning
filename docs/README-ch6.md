@@ -62,3 +62,66 @@ ros2_ws/src/my_robot_description/urdf/my_robot.urdf.xacro
 7. Change code in my_robot.ros2_control.xacro
 
 ros2_ws/src/my_robot_description/urdf/my_robot.ros2_control.xacro
+
+
+### Ch6-3 Start Everything From the Terminal
+
+1. Terminal 1
+
+```
+ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_description:="$(xacro /home/eddie/Documents/ROS2_moveit2_learning/ros2_ws/src/my_robot_description/urdf/my_robot.urdf.xacro)"
+
+```
+2. Terminal 2
+
+```
+ros2 run controller_manager ros2_control_node --params-file /home/eddie/Documents/ROS2_moveit2_learning/ros2_ws/src/my_robot_bringup/config/ros2_controllers.yaml
+
+```
+
+* Still have some error
+
+### Ch6-4 Activity 04 - Write the Launch File
+
+### Ch6-5 Activity 04 - Solution
+
+1. New a launch file
+
+ros2_ws/src/my_robot_bringup/launch/my_robot.launch.xml
+
+2. Write the code in launch file
+
+3. Add exec_depend pkg in package.xml
+
+ros2_ws/src/my_robot_bringup/package.xml
+
+4. Build code and Launch file
+
+```
+colcon build && source install/setup.bash
+```
+
+```
+ros2 launch my_robot_bringup my_robot.launch.xml 
+```
+
+5. Add MotionPlanning and use ompl in rviz
+
+6. Save as rviz config in config folder
+
+ros2_ws/src/my_robot_bringup/config/my_robot_moveit.rviz
+
+7. Adjust the rviz path in launch file
+
+ros2_ws/src/my_robot_bringup/launch/my_robot.launch.xml
+
+8. Launch file again and try plan & execute the robot
+
+
+```
+colcon build && source install/setup.bash
+```
+
+```
+ros2 launch my_robot_bringup my_robot.launch.xml 
+```
