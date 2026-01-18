@@ -67,3 +67,47 @@ ros2 run my_robot_command_cpp test_moveit
 ```
 
 7. Extention: Add new arm pose(home) and add gripper group. 
+
+### Ch7-3 Joint and Pose Goal - C++
+
+1. Commment out Named goal code in test_moveit.cpp
+
+ros2_ws/src/my_robot_command_cpp/src/test_moveit.cpp
+
+2. Add Joint Goal
+
+3. Build and Launch code
+
+* Terminal 1
+```
+colcon build --packages-select my_robot_command_cpp 
+
+ros2 launch my_robot_bringup my_robot.launch.xml 
+
+```
+* Terminal 2
+```
+ros2 run my_robot_command_cpp test_moveit 
+
+```
+
+4. Commment out Joint goal code in test_moveit.cpp
+
+ros2_ws/src/my_robot_command_cpp/src/test_moveit.cpp
+
+5. Add Pose Goal
+
+6. Build and Launch code
+
+* Terminal 1
+```
+colcon build --packages-select my_robot_command_cpp 
+
+ros2 launch my_robot_bringup my_robot.launch.xml 
+
+```
+* Terminal 2
+```
+ros2 run my_robot_command_cpp test_moveit 
+
+```
