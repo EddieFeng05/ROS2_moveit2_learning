@@ -64,8 +64,8 @@ int main(int argc, char **argv)
 
     geometry_msgs::msg::PoseStamped target_pose;
     target_pose.header.frame_id = "base_link";
-    target_pose.pose.position.x = 0.0;
-    target_pose.pose.position.y = -0.7;
+    target_pose.pose.position.x = 0.7;
+    target_pose.pose.position.y = 0.0;
     target_pose.pose.position.z = 0.4;
     target_pose.pose.orientation.x = q.getX();
     target_pose.pose.orientation.y = q.getY();
@@ -81,6 +81,29 @@ int main(int argc, char **argv)
     if(success1) {
         arm.execute(plan1);
     }  
+
+    // Cartesian Path
+
+    std::vector<geometry_msgs::msg::Pose> waypoints;
+    geometry_msgs::msg::Pose pose1 = arm.getCurrentPose().pose; // Start from the current pose
+    pose1.position.z += -0.2; // First move up (z)
+    waypoints.push_back(pose1); // first waypoint
+    geometry_msgs::msg::Pose pose2 = pose1;
+    pose2.position.y += 0.2; // Second move to the side (y
+    waypoints.push_back(pose2); // second waypoint
+    geometry_msgs::msg::Pose pose3 = pose2;
+    pose3.position.y += -0.2;
+    pose3.position.z += 0.2;
+    waypoints.push_back(pose3); // third waypoint
+
+
+    moveit_msgs::msg::RobotTrajectory trajectory;
+
+    double fraction = arm.computeCartesianPath(waypoints, 0.01, trajectory); // eef_step=1cm, jump_threshold=0.0
+
+    if (fraction == 1) {
+        arm.execute(trajectory);
+    }
 
     rclcpp::shutdown();
     spinner.join();

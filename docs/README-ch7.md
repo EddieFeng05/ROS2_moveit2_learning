@@ -111,3 +111,61 @@ ros2 launch my_robot_bringup my_robot.launch.xml
 ros2 run my_robot_command_cpp test_moveit 
 
 ```
+
+### 7-4 Cartesian Path
+
+1. Add the Catesian path code, add pose1(z += -0.2)
+
+ros2_ws/src/my_robot_command_cpp/src/test_moveit.cpp
+
+2. Build and Launch code
+
+* Terminal 1
+```
+colcon build --packages-select my_robot_command_cpp 
+
+ros2 launch my_robot_bringup my_robot.launch.xml 
+
+```
+
+* You can show the trail
+
+RobotModel/Links/tool_link/Show Trail [v]
+
+RobotModel/All Links Enabled [ ]
+
+TF [ ]
+
+
+* Terminal 2
+```
+ros2 run my_robot_command_cpp test_moveit 
+
+```
+
+3. Make trajectory be triangle, add pose2(y += 0.2), pose3(y += -0.2, z += 0.2)
+
+4. Build and Launch code
+
+* Terminal 1
+```
+colcon build --packages-select my_robot_command_cpp 
+
+ros2 launch my_robot_bringup my_robot.launch.xml 
+
+```
+
+* You can show the trail
+
+RobotModel/Links/tool_link/Show Trail [v]
+
+RobotModel/All Links Enabled [ ]
+
+TF [ ]
+
+
+* Terminal 2
+```
+ros2 run my_robot_command_cpp test_moveit 
+
+```
