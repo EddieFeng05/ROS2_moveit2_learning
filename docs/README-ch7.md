@@ -181,3 +181,16 @@ ros2_ws/src/my_robot_command_cpp
 3. Write the class Commander in commander_template.cpp
 
 4. Write th MoveGroupInterface in commander_template.cpp
+
+
+### Ch7-6 Integrate the C++ API inside an OOP node - Methods
+
+1. Add void planAndExecute code in class private commander_template.cpp
+
+2. Add void goToNamedTarget code in class public commander_template.cpp
+
+3. Add void goToJointTarget code in class public commander_template.cpp
+
+4. Add void goToPoseTarget code in class public commander_template.cpp
+
+5. Adjust void goToNamedTarget code add cartesian_path flag in class public commander_template.cpp
