@@ -112,7 +112,7 @@ ros2 run my_robot_command_cpp test_moveit
 
 ```
 
-### 7-4 Cartesian Path
+### Ch7-4 Cartesian Path
 
 1. Add the Catesian path code, add pose1(z += -0.2)
 
@@ -169,3 +169,15 @@ TF [ ]
 ros2 run my_robot_command_cpp test_moveit 
 
 ```
+
+### Ch7-5 Integrate the C++ API inside an OOP node - Setup
+
+1. New a file commander_template.cpp
+
+ros2_ws/src/my_robot_command_cpp
+
+2. Write the ros2 node structure in commander_template.cpp
+
+3. Write the class Commander in commander_template.cpp
+
+4. Write th MoveGroupInterface in commander_template.cpp
