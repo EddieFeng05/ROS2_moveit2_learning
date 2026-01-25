@@ -48,5 +48,9 @@ sudo apt install ros-jazzy-ros2-control ros-jazzy-ros2-controllers
 
 ## CH7 Interact with Moveit using the C++ API
 
-[CH6 REAMDME](./docs/README-ch7.md)
+[CH7 REAMDME](./docs/README-ch7.md)
+
+## CH8 Interact with Moveit using the Python API
+
+[CH8 REAMDME](./docs/README-ch8.md)
 
