@@ -26,3 +26,61 @@ sudo apt install ros-jazzy-ros2-control ros-jazzy-ros2-controllers
 
 ### Ch8-1 Intro
 
+### Ch8-2 Make the Arm Move with the MoveIt Python API
+
+1. Install moveit python library
+
+```
+sudo apt install ros-jazzy-moveit-py
+
+```
+
+
+2. Create a new package
+
+ros2_ws/src/my_robot_command_py
+
+```
+ros2 pkg create my_robot_command_py --build-type ament_python --dependencies rclpy
+
+```
+
+3. New the test_moveit.py and paste the sample code
+
+ros2_ws/src/my_robot_command_py/my_robot_command_py/test_moveit.py
+
+
+4. Add library in test_moveit.py
+
+5. Write the initial in main
+
+6. Write robot move
+
+7. Add the node in setup.py
+
+ros2_ws/src/my_robot_command_py/setup.py
+
+8. Build and Run
+
+* Terminal 1
+
+a. Build 
+
+```
+colcon build --packages-select my_robot_command_py --symlink-install
+```
+
+
+b. Launch code
+
+```
+ros2 launch my_robot_bringup my_robot.launch.xml
+
+```
+
+* Terminal 2
+
+```
+ros2 run my_robot_command_py test_moveit
+
+```
