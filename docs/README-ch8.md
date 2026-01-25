@@ -84,3 +84,32 @@ ros2 launch my_robot_bringup my_robot.launch.xml
 ros2 run my_robot_command_py test_moveit
 
 ```
+
+### Ch8-3 Joint and Pose Goal - Python
+
+* In Python library, we cannot use cartesian_path
+
+We add Joint and Pose template, you can try yourself.
+
+1. Install tf-transformations library 
+
+```
+sudo apt install ros-jazzy-tf-transformations -y
+```
+
+2. Build and run code
+
+* Terminal 1
+
+```
+colcon build --packages-select my_robot_command_py --symlink-install
+
+ros2 launch my_robot_bringup my_robot.launch.xml
+```
+
+* Terminal 2
+
+```
+ros2 run my_robot_command_py test_moveit
+
+```
