@@ -19,6 +19,8 @@
 
     <include file="$(find-pkg-share my_robot_moveit_config)/launch/move_group.launch.py" />
 
+    <!-- <node pkg="my_robot_command_cpp" exec="commander" /> -->
+
     <node pkg="rviz2" exec="rviz2" output="screen"
           args="-d $(var rviz_config_path)" />
 

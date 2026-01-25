@@ -1,7 +1,10 @@
 #include <rclcpp/rclcpp.hpp>
 #include <moveit/move_group_interface/move_group_interface.hpp>
+#include <example_interfaces/msg/bool.hpp>
 
 using MoveGroupInterface = moveit::planning_interface::MoveGroupInterface;
+using Bool = example_interfaces::msg::Bool;
+using namespace std::placeholders;
 
 class Commander{
 public:
@@ -12,6 +15,9 @@ public:
         arm_->setMaxVelocityScalingFactor(1.0); // 100% of max velocity
         arm_->setMaxAccelerationScalingFactor(1.0); // 100% of max acceleration
         gripper_ = std::make_shared<MoveGroupInterface>(node_, "gripper");
+
+        open_gripper_sub_ = node_->create_subscription<Bool>(
+            "open_gripper", 10, std::bind(&Commander::OpenGripperCallback, this, _1));
     }
     
     void goToNamedTarget(const std::string &name){
@@ -60,6 +66,18 @@ public:
             }
         }
     }
+
+    void openGripper(){
+        gripper_->setStartStateToCurrentState();
+        gripper_->setNamedTarget("gripper_open");
+        planAndExecute(gripper_);
+    }
+
+    void closeGripper(){
+        gripper_->setStartStateToCurrentState();
+        gripper_->setNamedTarget("gripper_close");
+        planAndExecute(gripper_);
+    }
 private:
 
     void planAndExecute(const std::shared_ptr<MoveGroupInterface> &interface){
@@ -70,10 +88,20 @@ private:
             interface->execute(plan);
         }
     }
+    
+    void OpenGripperCallback(const Bool &msg){
+        if (msg.data){
+            openGripper();
+        } else{
+            closeGripper();
+        }
+    }
 
     std::shared_ptr<rclcpp::Node> node_;
     std::shared_ptr<MoveGroupInterface> arm_;
     std::shared_ptr<MoveGroupInterface> gripper_;
+
+    rclcpp::Subscription<Bool>::SharedPtr open_gripper_sub_;
 };
 
 int main(int argc, char **argv)

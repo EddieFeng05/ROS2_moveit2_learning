@@ -194,3 +194,136 @@ ros2_ws/src/my_robot_command_cpp
 4. Add void goToPoseTarget code in class public commander_template.cpp
 
 5. Adjust void goToNamedTarget code add cartesian_path flag in class public commander_template.cpp
+
+
+### Ch7-7 Add a Topic Subscriber
+
+1. Add grpper control in class public the NamedTarget refer by srdf file commander_template.cpp
+
+2. Add topic subscriber and write Condition
+
+3. Add depend in packages.xml
+
+ros2_ws/src/my_robot_command_cpp/package.xml
+
+4. Add node in CMakeList.txt
+
+ros2_ws/src/my_robot_command_cpp/CMakeLists.txt
+
+5. Run code
+
+* Terminal 1
+
+a. Build code 
+
+```
+colcon build --packages-select my_robot_command_cpp 
+```
+
+b. Launch the bringup
+
+```
+ros2 launch my_robot_bringup my_robot.launch.xml
+
+```
+
+* Terminal 2
+
+a. Run the node
+
+```
+ros2 run my_robot_command_cpp commander 
+```
+
+
+* Terminal 3
+
+a. check topic list, see thge open_gripper node
+
+```
+ros2 topic list
+```
+
+```
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ ros2 topic list 
+/arm_controller/controller_state
+/arm_controller/joint_trajectory
+/arm_controller/transition_event
+/attached_collision_object
+/clicked_point
+/collision_object
+/controller_manager/activity
+/controller_manager/introspection_data/full
+/controller_manager/introspection_data/names
+/controller_manager/introspection_data/values
+/controller_manager/statistics/full
+/controller_manager/statistics/names
+/controller_manager/statistics/values
+/diagnostics
+/display_contacts
+/display_planned_path
+/dynamic_joint_states
+/goal_pose
+/gripper_controller/controller_state
+/gripper_controller/joint_trajectory
+/gripper_controller/transition_event
+/initialpose
+/joint_state_broadcaster/transition_event
+/joint_states
+/monitored_planning_scene
+/open_gripper
+/parameter_events
+/pipeline_state
+/planning_scene
+/planning_scene_world
+/recognized_object_array
+/robot_description
+/robot_description_semantic
+/rosout
+/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/feedback
+/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/update
+/tf
+/tf_static
+/trajectory_execution_event
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ 
+```
+
+b. see info about open_grpper
+
+```
+ros2 topic info /open_gripper
+
+```
+
+```
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ ros2 topic info /open_gripper 
+Type: example_interfaces/msg/Bool
+Publisher count: 0
+Subscription count: 1
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ 
+
+```
+
+c. gripper open and close
+
+
+```
+# close
+ros2 topic pub -1 /open_gripper example_interfaces/msg/Bool "{data: false}"
+
+# open
+ros2 topic pub -1 /open_gripper example_interfaces/msg/Bool "{data: true}"
+```
+
+```
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ ros2 topic pub -1 /open_gripper example_interfaces/msg/Bool "{data: false}"
+publisher: beginning loop
+publishing #1: example_interfaces.msg.Bool(data=False)
+
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ ros2 topic pub -1 /open_gripper example_interfaces/msg/Bool "{data: true}"
+publisher: beginning loop
+publishing #1: example_interfaces.msg.Bool(data=True)
+
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ 
+
+```
