@@ -113,3 +113,18 @@ ros2 launch my_robot_bringup my_robot.launch.xml
 ros2 run my_robot_command_py test_moveit
 
 ```
+
+
+### Ch8-4 Integrate the Python API inside an OOP Node
+
+1. New a file commander_template.py
+
+ros2_ws/src/my_robot_command_py/my_robot_command_py/commander_template.py
+
+2. Make a file executable
+
+```
+chmod +x commander_template.py 
+```
+
+3. Write code in commander_template.py
