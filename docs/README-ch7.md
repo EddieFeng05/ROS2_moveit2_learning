@@ -477,3 +477,198 @@ publisher: beginning loop
 publishing #1: example_interfaces.msg.Float64MultiArray(layout=example_interfaces.msg.MultiArrayLayout(dim=[], data_offset=0), data=[-0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
 ```
 ### Ch7-10 Activity 05 - Solution [2/2]
+
+1. Make your custom interfaces
+
+https://roboticsbackend.com/ros2-create-custom-message/
+
+2. Create the package name my_robot_interfaces
+
+```
+ros2 pkg create my_robot_interfaces
+
+```
+
+
+3. Adjust folder
+
+```
+rm -r include/ src/
+mkdir msg
+```
+3. Add the new code in packages.xml
+
+ros2_ws/src/my_robot_interfaces/package.xml
+
+4. Add the new code in CMakeList.txt
+
+ros2_ws/src/my_robot_interfaces/CMakeLists.txt
+
+5. New file PoseCommand.msg
+
+ros2_ws/src/my_robot_interfaces/msg/PoseCommand.msg
+
+6. Rewrite the rosld_generate_ijnterfaces in CMakeList.txt
+
+ros2_ws/src/my_robot_interfaces/CMakeLists.txt
+
+7. Build and test
+
+```
+colcon build --packages-select my_robot_interfaces 
+```
+
+```
+ros2 interface show my_robot_interfaces/msg/PoseCommand 
+```
+
+```
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ source install/setup.bash 
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ ros2 interface show my_robot_interfaces/msg/PoseCommand 
+float64 x
+float64 y
+float64 z
+float64 roll
+float64 pitch
+float64 yaw
+bool cartesian_path
+
+```
+
+8. Add new path in .vscode
+
+```
+"/ros2_ws/install/my_robot_interfaces/include/**"
+```
+
+.vscode/c_cpp_properties.json
+
+9. Add incldue, using and rclcpp sub in commander_template.cpp
+
+ros2_ws/src/my_robot_command_cpp/src/commander_template.cpp
+
+10. Write callback function in commander_template.cpp
+
+11. Add my_robot_interfaces in packages
+
+ros2_ws/src/my_robot_command_cpp/package.xml
+
+12. Add my_robot_interfaces in CMakeList.txt
+
+ros2_ws/src/my_robot_command_cpp/CMakeLists.txt
+
+13. Run code
+
+* Terminal 1
+
+a. Build code 
+
+```
+colcon build --packages-select my_robot_command_cpp 
+```
+
+b. Launch the bringup
+
+```
+ros2 launch my_robot_bringup my_robot.launch.xml
+
+```
+
+* Terminal 2
+
+a. Run the node
+
+```
+ros2 run my_robot_command_cpp commander 
+```
+
+
+* Terminal 3
+
+a. check topic list, see thge /pose_command node
+
+```
+ros2 topic list
+```
+
+```
+eddie@eddie-VM:~$ ros2 topic list 
+/arm_controller/controller_state
+/arm_controller/joint_trajectory
+/arm_controller/transition_event
+/attached_collision_object
+/clicked_point
+/collision_object
+/controller_manager/activity
+/controller_manager/introspection_data/full
+/controller_manager/introspection_data/names
+/controller_manager/introspection_data/values
+/controller_manager/statistics/full
+/controller_manager/statistics/names
+/controller_manager/statistics/values
+/diagnostics
+/display_contacts
+/display_planned_path
+/dynamic_joint_states
+/goal_pose
+/gripper_controller/controller_state
+/gripper_controller/joint_trajectory
+/gripper_controller/transition_event
+/initialpose
+/joint_command
+/joint_state_broadcaster/transition_event
+/joint_states
+/monitored_planning_scene
+/open_gripper
+/parameter_events
+/pipeline_state
+/planning_scene
+/planning_scene_world
+/pose_command
+/recognized_object_array
+/robot_description
+/robot_description_semantic
+/rosout
+/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/feedback
+/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/update
+/tf
+/tf_static
+/trajectory_execution_event
+
+```
+
+b. see the info
+
+```
+ros2 topic info /pose_command 
+```
+
+```
+eddie@eddie-VM:~$ ros2 topic info /pose_command 
+Type: my_robot_interfaces/msg/PoseCommand
+Publisher count: 0
+Subscription count: 1
+
+```
+
+c. pub pose command
+
+```
+ros2 topic pub -1 /pose_command my_robot_interfaces/msg/PoseCommand "{x: 0.7, y: 0.0, z: 0.4, roll: 3.14, pitch: 0.0, yaw: 0.0, cartesian_path: false}"
+
+ros2 topic pub -1 /pose_command my_robot_interfaces/msg/PoseCommand "{x: 0.7, y: 0.0, z: 0.2, roll: 3.14, pitch: 0.0, yaw: 0.0, cartesian_path: True}"
+
+
+```
+
+```
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ ros2 topic pub -1 /pose_command my_robot_interfaces/msg/PoseCommand "{x: 0.7, y: 0.0, z: 0.4, roll: 3.14, pitch: 0.0, yaw: 0.0, cartesian_path: false}"
+publisher: beginning loop
+publishing #1: my_robot_interfaces.msg.PoseCommand(x=0.7, y=0.0, z=0.4, roll=3.14, pitch=0.0, yaw=0.0, cartesian_path=False)
+
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ ros2 topic pub -1 /pose_command my_robot_interfaces/msg/PoseCommand "{x: 0.7, y: 0.0, z: 0.2, roll: 3.14, pitch: 0.0, yaw: 0.0, cartesian_path: True}"
+publisher: beginning loop
+publishing #1: my_robot_interfaces.msg.PoseCommand(x=0.7, y=0.0, z=0.2, roll=3.14, pitch=0.0, yaw=0.0, cartesian_path=True)
+
+eddie@eddie-VM:~/Documents/ROS2_moveit2_learning/ros2_ws$ 
+```
