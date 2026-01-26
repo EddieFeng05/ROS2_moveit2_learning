@@ -128,3 +128,56 @@ chmod +x commander_template.py
 ```
 
 3. Write code in commander_template.py
+
+### Ch8-5 Add Topic Subscribers
+
+1. Add import library, sub, callback function in commander_template.py
+
+ros2_ws/src/my_robot_command_py/my_robot_command_py/commander_template.py
+
+2. Make the commander can run gripper control(Bool), joints control(Float64Array), pose control(PoseCommand)
+
+3. Add setup node in setup.py
+
+ros2_ws/src/my_robot_command_py/setup.py
+
+4. Build and run code
+
+* Terminal 1
+
+```
+colcon build --packages-select my_robot_command_py --symlink-install
+
+ros2 launch my_robot_bringup my_robot.launch.xml
+```
+
+* Terminal 2
+
+```
+ros2 run my_robot_command_py test_moveit
+
+```
+
+* Terminal 3
+
+gripper control
+
+```
+ros2 topic pub -1 /open_gripper example_interfaces/msg/Bool "data: false"
+
+ros2 topic pub -1 /open_gripper example_interfaces/msg/Bool "data: true"
+```
+
+
+joints control
+
+```
+ros2 topic pub -1 /joint_command example_interfaces/msg/Float64MultiArray "data: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]"
+```
+
+posecommand control
+
+```
+ros2 topic pub -1 /pose_command my_robot_interfaces/msg/PoseCommand "{x: 0.7, y: 0.0, z: 0.4, roll: 3.14, pitch: 0.0, yaw: 0.0}"
+
+```

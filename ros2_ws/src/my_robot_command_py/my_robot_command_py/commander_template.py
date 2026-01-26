@@ -8,6 +8,9 @@ from moveit.core.robot_state import RobotState
 from geometry_msgs.msg import PoseStamped
 import tf_transformations
 
+from example_interfaces.msg import Bool
+from example_interfaces.msg import Float64MultiArray
+from my_robot_interfaces.msg import PoseCommand
 
 ROBOT_CONFIG = MoveItConfigsBuilder(robot_name="my_robot", package_name="my_robot_moveit_config")\
                                     .robot_description_semantic("config/my_robot.srdf", {"name": "my_robot"})\
@@ -52,6 +55,15 @@ class CommanderNode(Node):
         self.robot_ = MoveItPy(node_name="moveit_py", config_dict=ROBOT_CONFIG)
         self.arm_: PlanningComponent = self.robot_.get_planning_component("arm")
         self.gripper_: PlanningComponent = self.robot_.get_planning_component("gripper")
+
+        self.open_gripper_sub_ = self.create_subscription(
+            Bool, "open_gripper", self.open_grippper_callback, 10)
+
+        self.joint_cmd_sub_ = self.create_subscription(
+            Float64MultiArray, "joint_command", self.joint_command_callback, 10)
+        
+        self.pose_cmd_sub_ = self.create_subscription(
+            PoseCommand, "pose_command", self.pose_command_callback, 10)
 
     def go_to_named_target(self, name):
         self.arm_.set_start_state_to_current_state()
@@ -107,6 +119,18 @@ class CommanderNode(Node):
         plan_result = interface.plan()
         if plan_result:
             self.robot_.execute(plan_result.trajectory, controllers=[])
+
+    def open_grippper_callback(self, msg):
+        if msg.data:
+            self.open_gripper()
+        else:
+            self.close_gripper()
+
+    def joint_command_callback(self, msg):
+        self.go_to_joints_target(msg.data)
+
+    def pose_command_callback(self, msg: PoseCommand):
+        self.go_to_pose_target(msg.x, msg.y, msg.z, msg.roll, msg.pitch, msg.yaw)
 
 def main(args=None):
     rclpy.init(args=args)
