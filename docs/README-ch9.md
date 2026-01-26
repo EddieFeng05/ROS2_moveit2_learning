@@ -25,3 +25,44 @@ sudo apt install ros-jazzy-ros2-control ros-jazzy-ros2-controllers
 ## CH9 Connect Moveit to the Hardware
 
 ### Ch9-1 Intro
+
+### Ch9-2 ros2_control Quick Recap and the Hardware I Will Use
+
+### Ch9-3 my_robot_hardware Package Overview
+
+1. Create package my_robot_hardware
+
+ros2_ws/src/my_robot_hardware
+
+```
+ros2 pkg create my_robot_hardware
+```
+
+2. Add motor driver library
+
+ros2_ws/src/my_robot_hardware/include/my_robot_hardware/xl330_driver.hpp
+
+3. Add arm_hardware_interface.hpp
+
+ros2_ws/src/my_robot_hardware/include/my_robot_hardware/arm_hardware_interface.hpp
+
+4. Add arm_hardware_interface.cpp
+
+ros2_ws/src/my_robot_hardware/src/arm_hardware_interface.cpp
+
+5. Add my_robot_hardware_interface.xml
+
+ros2_ws/src/my_robot_hardware/my_robot_hardware_interface.xml
+
+6. Adjust content about CMakeList.txt
+
+ros2_ws/src/my_robot_hardware/CMakeLists.txt
+
+7. Build code, you should download dynmixel-sdk first.
+
+```
+sudo apt install ros-jazzy-dynamixel-sdk
+
+colcon build --packages-select my_robot_hardware 
+
+```
