@@ -101,3 +101,32 @@ ros2 run my_robot_command_cpp commander
 ```
 ros2 topic pub -1 /joint_command example_interfaces/msg/Float64MultiArray “{data:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}"
 ```
+
+
+### Ch9-5 Switch Between Real Robot and Mock Component
+
+1. Add condition by use_mock_component in my_robot.ros2_control.xacro
+
+ros2_ws/src/my_robot_description/urdf/my_robot.ros2_control.xacro
+
+2. Add param when ros2 run robot_description in my_robot.launch.xml
+
+ros2_ws/src/my_robot_bringup/launch/my_robot.launch.xml
+
+3. Build and run 
+
+```
+colcon build
+
+# mock
+
+ros2 launch my_robot_bringup my_robot.launch.xml use_mock_component:=true
+
+ros2 launch my_robot_bringup my_robot.launch.xml
+
+# real motor
+
+ros2 launch my_robot_bringup my_robot.launch.xml use_mock_component:=false
+
+```
+

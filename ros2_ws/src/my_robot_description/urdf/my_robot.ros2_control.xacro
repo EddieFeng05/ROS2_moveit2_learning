@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <xacro:arg name="use_mock_component" default="true"/>
+
   <ros2_control name="Arm" type="system">
       <hardware>
-          <!-- <plugin>mock_components/GenericSystem</plugin> -->
-          <plugin>arm_hardware/ArmHardwareInterface</plugin>
-          <param name="joint1_motor_id">10</param>
-          <param name="joint2_motor_id">20</param>
-          <param name="dynamixel_port">/dev/ttyACM0</param>
+          <xacro:if value="$(arg use_mock_component)">
+            <plugin>mock_components/GenericSystem</plugin>
+          </xacro:if>
+          <xacro:unless value="$(arg use_mock_component)">
+            <plugin>arm_hardware/ArmHardwareInterface</plugin>
+            <param name="joint1_motor_id">10</param>
+            <param name="joint2_motor_id">20</param>
+            <param name="dynamixel_port">/dev/ttyACM0</param>
+          </xacro:unless>
       </hardware>
       <joint name="joint1">
           <command_interface name="position"/>
