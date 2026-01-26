@@ -3,8 +3,11 @@
 
   <ros2_control name="Arm" type="system">
       <hardware>
-          <!-- By default, set up controllers for simulation. This won't work on real hardware -->
-          <plugin>mock_components/GenericSystem</plugin>
+          <!-- <plugin>mock_components/GenericSystem</plugin> -->
+          <plugin>arm_hardware/ArmHardwareInterface</plugin>
+          <param name="joint1_motor_id">10</param>
+          <param name="joint2_motor_id">20</param>
+          <param name="dynamixel_port">/dev/ttyACM0</param>
       </hardware>
       <joint name="joint1">
           <command_interface name="position"/>
@@ -42,6 +45,15 @@
             <param name="initial_value">0.0</param>
           </state_interface>
       </joint>
+
+  </ros2_control>
+
+  <ros2_control name="Gripper" type="system">
+      <hardware>
+          <!-- By default, set up controllers for simulation. This won't work on real hardware -->
+          <plugin>mock_components/GenericSystem</plugin>
+      </hardware>
+
       <joint name="gripper_left_finger_joint">
           <command_interface name="position"/>
           <state_interface name="position">
@@ -51,3 +63,4 @@
 
   </ros2_control>
 </robot>
+

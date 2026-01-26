@@ -66,3 +66,38 @@ sudo apt install ros-jazzy-dynamixel-sdk
 colcon build --packages-select my_robot_hardware 
 
 ```
+
+### Ch9-4 Use the Hardware Interface in the URDF
+
+1. Add ros2_control name gripper in my_robot.ros2_control.xacro
+
+ros2_ws/src/my_robot_description/urdf/my_robot.ros2_control.xacro
+
+2. Change the plugin for name Arm and add param(motor id and port) in my_robot.ros2_control.xacro
+
+3. Build and Run
+
+* Terminal 1: Joint1 and joint2 the angle follow the real motors
+
+```
+colcon build
+
+ros2 launch my_robot_bringup my_robot.launch.xml
+
+```
+
+* If you have some error you need decrease update_rate (100 -> 20 Hz) in ros2_controller.yaml
+
+ros2_ws/src/my_robot_bringup/config/ros2_controllers.yaml
+
+* Terminal 2
+
+```
+ros2 run my_robot_command_cpp commander 
+```
+
+* Terminal 3: Watch the real motor move
+
+```
+ros2 topic pub -1 /joint_command example_interfaces/msg/Float64MultiArray “{data:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}"
+```
