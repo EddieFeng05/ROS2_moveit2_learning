@@ -54,3 +54,7 @@ sudo apt install ros-jazzy-ros2-control ros-jazzy-ros2-controllers
 
 [CH8 REAMDME](./docs/README-ch8.md)
 
+## CH9 Connect Moveit to the Hardware
+
+[CH9 REAMDME](./docs/README-ch9.md)
+
